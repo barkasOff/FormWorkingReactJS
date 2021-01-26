@@ -1,15 +1,48 @@
 import React, {Component} from 'react';
 
-const   PostListItem = () => (
-    <li>
-        <span>
-            Hello, world!
-        </span>
-        <div>
-            <button type="button">Star</button>
-            <button type="button">Trash</button>
-        </div>
-        <button type="button">Like</button>
-    </li>
-);
-export default PostListItem;
+export default class PostListItem extends Component {
+    constructor (props) {
+        super(props);
+        this.state = {
+            important: false,
+            like: false
+        };
+    }
+
+    onImportant = () => {
+        this.setState(({important}) => ({
+            important: !important
+        }));
+    };
+    onLike = () => {
+        this.setState(({like}) => ({
+            like: !like
+        }));
+    };
+
+    render() {
+        const   {label} = this.props;
+        const   {important, like} = this.state;
+
+        let     textI = important ? "SuperStar" : "Start";
+        let     textL = like ? "SuperLike" : "Like";
+        return (
+            <div>
+                <span>
+                    {label}
+                </span>
+                <div>
+                    <button
+                        type="button"
+                        onClick={this.onImportant}>
+                        {textI}</button>
+                    <button type="button">Trash</button>
+                </div>
+                <button
+                    type="button"
+                    onClick={this.onLike}>
+                    {textL}</button>
+            </div>
+        );
+    }
+};
