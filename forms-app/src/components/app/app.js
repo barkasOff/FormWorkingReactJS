@@ -10,11 +10,14 @@ export default class App extends Component {
         super(props);
         this.state = {
             data: [
-                    {label: "C# developmetnt", important: true, liked: false, id: "1asdasd3"},
-                    {label: "React JS developmetnt", important: false, liked: false, id: "12fasgsfg3"},
-                    {label: "Native JS developmetnt", important: false, liked: false, id: "12adfhd5w3"}
-            ]
+                    {label: "C# developmetnt", important: true, liked: false, id: 1},
+                    {label: "React JS developmetnt", important: false, liked: false, id: 2},
+                    {label: "Native JS developmetnt", important: false, liked: false, id: 3}
+            ],
+            findText: '',
+            filter: 'all'
         };
+        this.maxId = 4;
     }
 
     deleteItem = (id) => {
@@ -26,9 +29,9 @@ export default class App extends Component {
                 data: newData
             }
         });
-    }
+    };
     addItem = (body) => {
-        const   newElem = {label: body, important: true, id: "dsfsdfsd"};
+        const   newElem = {label: body, important: true, id: ++this.maxId};
         this.setState(({data}) => {
             const   newData = [...data, newElem];
 
@@ -36,7 +39,7 @@ export default class App extends Component {
                 data: newData
             }
         });
-    }
+    };
     onToggleImportant = (id) => {
         this.setState(({data}) => {
             const   index = data.findIndex(elem => elem.id === id),
@@ -47,7 +50,7 @@ export default class App extends Component {
                 data: newData
             }
         });
-    }
+    };
     onToggleLiked = (id) => {
         this.setState(({data}) => {
             const   index = data.findIndex(elem => elem.id === id),
@@ -58,22 +61,44 @@ export default class App extends Component {
                 data: newData
             }
         });
+    };
+    searchPosts = (items, findText) => {
+        if (findText.length === 0) {
+            return (items);
+        }
+        return items.filter(item => item.label.includes(findText));
+    }
+    filterPosts = (items, filter) => {
+        if (filter === 'liked') {
+            return (items.filter(item => item.liked));
+        }
+        return items;
+    }
+    onUpdateSearch = (findText) => {
+        this.setState({findText});
+    };
+    onFilterSelect = (filter) => {
+        this.setState({filter});
     }
 
     render() {
-        const   {data} = this.state,
+        const   {data, findText, filter} = this.state,
                 likedPosts = data.filter(post => post.liked).length,
-                allPosts = data.length;
+                allPosts = data.length,
+                visiblePost = this.filterPosts(this.searchPosts(data, findText), filter);
 
         return (
             <div>
                 <AppHeader
                     liked={likedPosts}
                     all={allPosts} />
-                <SearchPanel/>
-                <PostStatusFilter/>
+                <SearchPanel
+                    onUpdateSearch={this.onUpdateSearch} />
+                <PostStatusFilter
+                    filter={filter}
+                    onFilterSelect={this.onFilterSelect} />
                 <PostList
-                    posts={this.state.data}
+                    posts={visiblePost}
                     onDelete={this.deleteItem}
                     onToggleImportant={this.onToggleImportant}
                     onToggleLiked={this.onToggleLiked} />
