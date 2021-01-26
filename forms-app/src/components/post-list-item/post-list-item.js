@@ -21,7 +21,7 @@ export default class PostListItem extends Component {
     };
 
     render() {
-        const   {label} = this.props;
+        const   {label, onDelete} = this.props;
         const   {important, like} = this.state;
 
         let     textI = important ? "SuperStar" : "Start";
@@ -36,7 +36,10 @@ export default class PostListItem extends Component {
                         type="button"
                         onClick={this.onImportant}>
                         {textI}</button>
-                    <button type="button">Trash</button>
+                    <button
+                        type="button"
+                        onClick={onDelete}>
+                        Trash</button>
                 </div>
                 <button
                     type="button"

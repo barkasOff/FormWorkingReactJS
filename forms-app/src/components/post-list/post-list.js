@@ -1,13 +1,14 @@
 import React, {Component} from 'react';
 import PostListItem from '../post-list-item/post-list-item';
 
-const   PostList = ({posts}) => {
+const   PostList = ({posts, onDelete}) => {
     const   elems = posts.map(item => {
         const   {id, ...itemProps} = item;
 
         return (
             <li key={id}>
-                <PostListItem {...itemProps} />
+                <PostListItem {...itemProps}
+                onDelete={() => onDelete(id)} />
             </li>
         );
     });
