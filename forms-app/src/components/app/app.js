@@ -10,9 +10,9 @@ export default class App extends Component {
         super(props);
         this.state = {
             data: [
-                    {label: "C# developmetnt", important: true, id: "1asdasd3"},
-                    {label: "React JS developmetnt", important: false, id: "12fasgsfg3"},
-                    {label: "Native JS developmetnt", important: false, id: "12adfhd5w3"}
+                    {label: "C# developmetnt", important: true, liked: false, id: "1asdasd3"},
+                    {label: "React JS developmetnt", important: false, liked: false, id: "12fasgsfg3"},
+                    {label: "Native JS developmetnt", important: false, liked: false, id: "12adfhd5w3"}
             ]
         };
     }
@@ -37,16 +37,46 @@ export default class App extends Component {
             }
         });
     }
+    onToggleImportant = (id) => {
+        this.setState(({data}) => {
+            const   index = data.findIndex(elem => elem.id === id),
+                    newElem = {...data[index], important: !data[index].important},
+                    newData = [...data.slice(0, index), newElem, ...data.slice(index + 1)];
+
+            return {
+                data: newData
+            }
+        });
+    }
+    onToggleLiked = (id) => {
+        this.setState(({data}) => {
+            const   index = data.findIndex(elem => elem.id === id),
+                    newElem = {...data[index], liked: !data[index].liked},
+                    newData = [...data.slice(0, index), newElem, ...data.slice(index + 1)];
+
+            return {
+                data: newData
+            }
+        });
+    }
 
     render() {
+        const   {data} = this.state,
+                likedPosts = data.filter(post => post.liked).length,
+                allPosts = data.length;
+
         return (
             <div>
-                <AppHeader/>
+                <AppHeader
+                    liked={likedPosts}
+                    all={allPosts} />
                 <SearchPanel/>
                 <PostStatusFilter/>
                 <PostList
                     posts={this.state.data}
-                    onDelete={this.deleteItem} />
+                    onDelete={this.deleteItem}
+                    onToggleImportant={this.onToggleImportant}
+                    onToggleLiked={this.onToggleLiked} />
                 <PostAddForm
                     onAdd={this.addItem}/>
             </div>

@@ -1,31 +1,11 @@
 import React, {Component} from 'react';
 
 export default class PostListItem extends Component {
-    constructor (props) {
-        super(props);
-        this.state = {
-            important: false,
-            like: false
-        };
-    }
-
-    onImportant = () => {
-        this.setState(({important}) => ({
-            important: !important
-        }));
-    };
-    onLike = () => {
-        this.setState(({like}) => ({
-            like: !like
-        }));
-    };
-
     render() {
-        const   {label, onDelete} = this.props;
-        const   {important, like} = this.state;
+        const   {label, onDelete, onToggleImportant, onToggleLiked, important, liked} = this.props;
 
-        let     textI = important ? "SuperStar" : "Start";
-        let     textL = like ? "SuperLike" : "Like";
+        let     textI = important ? "SuperStar" : "Star";
+        let     textL = liked ? "SuperLike" : "Like";
         return (
             <div>
                 <span>
@@ -34,7 +14,7 @@ export default class PostListItem extends Component {
                 <div>
                     <button
                         type="button"
-                        onClick={this.onImportant}>
+                        onClick={onToggleImportant}>
                         {textI}</button>
                     <button
                         type="button"
@@ -43,7 +23,7 @@ export default class PostListItem extends Component {
                 </div>
                 <button
                     type="button"
-                    onClick={this.onLike}>
+                    onClick={onToggleLiked}>
                     {textL}</button>
             </div>
         );
