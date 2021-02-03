@@ -1,31 +1,33 @@
 import React, {Component} from 'react';
+import './post-list-item.scss';
 
 export default class PostListItem extends Component {
     render() {
-        const   {label, onDelete, onToggleImportant, onToggleLiked, important, liked} = this.props;
+        const   {label, onDelete, onToggleImportant, onToggleLiked, important, liked} = this.props,
+                classes = "btn btn-right";
 
-        let     textI = important ? "SuperStar" : "Star";
-        let     textL = liked ? "SuperLike" : "Like";
+        let     classI = important ? classes + " btn-important" : classes;
+        let     classL = liked ? classes + " btn-like" : classes;
         return (
             <div className="posts__item">
                 <span>
                     {label}
                 </span>
                 <button
-                    className="btn btn-right"
+                    className={classI}
                     type="button"
                     onClick={onToggleImportant}>
-                    {textI}</button>
+                    Important</button>
                 <button
-                    className="btn btn-right"
+                    className={classL}
+                    type="button"
+                    onClick={onToggleLiked}>
+                    Like</button>
+                <button
+                    className={classes}
                     type="button"
                     onClick={onDelete}>
                     Trash</button>
-                <button
-                    className="btn btn-right"
-                    type="button"
-                    onClick={onToggleLiked}>
-                    {textL}</button>
             </div>
         );
     }
