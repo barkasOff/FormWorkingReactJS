@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import './search-panel.scss';
 
 export default class SearchPanel extends Component {
     constructor(props) {
@@ -17,6 +18,7 @@ export default class SearchPanel extends Component {
 
     render() {
         return <input
+                    className="text"
                     type="text"
                     placeholder="Поиск по записям"
                     onChange={this.onUpdateSearch} />;

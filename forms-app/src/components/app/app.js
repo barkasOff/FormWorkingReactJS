@@ -4,6 +4,7 @@ import SearchPanel from '../search-panel/search-panel';
 import PostStatusFilter from '../post-status-filter/post-status-filter';
 import PostList from '../post-list/post-list';
 import PostAddForm from '../post-add-form/post-add-from';
+import './app.scss';
 
 export default class App extends Component {
     constructor(props) {
@@ -88,15 +89,17 @@ export default class App extends Component {
                 visiblePost = this.filterPosts(this.searchPosts(data, findText), filter);
 
         return (
-            <div>
-                <AppHeader
-                    liked={likedPosts}
-                    all={allPosts} />
-                <SearchPanel
-                    onUpdateSearch={this.onUpdateSearch} />
-                <PostStatusFilter
-                    filter={filter}
-                    onFilterSelect={this.onFilterSelect} />
+            <div className="container">
+            <AppHeader
+                liked={likedPosts}
+                all={allPosts} />
+                <div className="edit">
+                    <SearchPanel
+                        onUpdateSearch={this.onUpdateSearch} />
+                    <PostStatusFilter
+                        filter={filter}
+                        onFilterSelect={this.onFilterSelect} />
+                </div>
                 <PostList
                     posts={visiblePost}
                     onDelete={this.deleteItem}

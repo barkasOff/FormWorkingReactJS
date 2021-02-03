@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import './post-status-filter.scss';
 
 export default class PostStatusFilter extends Component {
     constructor(props) {
@@ -10,16 +11,21 @@ export default class PostStatusFilter extends Component {
     }
 
     render() {
+        let     classes = "btn";
         const   {onFilterSelect} = this.props,
                 buttons = this.buttons.map(({name, label}) => {
-            return (
-                <button
-                    key={name}
-                    onClick={() => onFilterSelect(name)}>
-                    {label}</button>
-            );
-        });
+                    if (name === 'liked') {
+                        classes += ' btn-positive';
+                    }
+                    return (
+                        <button
+                            className={classes}
+                            key={name}
+                            onClick={() => onFilterSelect(name)}>
+                            {label}</button>
+                    );
+                });
 
-        return <div>{buttons}</div>;
+        return <div className="psf__btns">{buttons}</div>;
     }
 }

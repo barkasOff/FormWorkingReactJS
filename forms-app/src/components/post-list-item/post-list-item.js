@@ -7,21 +7,22 @@ export default class PostListItem extends Component {
         let     textI = important ? "SuperStar" : "Star";
         let     textL = liked ? "SuperLike" : "Like";
         return (
-            <div>
+            <div className="posts__item">
                 <span>
                     {label}
                 </span>
-                <div>
-                    <button
-                        type="button"
-                        onClick={onToggleImportant}>
-                        {textI}</button>
-                    <button
-                        type="button"
-                        onClick={onDelete}>
-                        Trash</button>
-                </div>
                 <button
+                    className="btn btn-right"
+                    type="button"
+                    onClick={onToggleImportant}>
+                    {textI}</button>
+                <button
+                    className="btn btn-right"
+                    type="button"
+                    onClick={onDelete}>
+                    Trash</button>
+                <button
+                    className="btn btn-right"
                     type="button"
                     onClick={onToggleLiked}>
                     {textL}</button>

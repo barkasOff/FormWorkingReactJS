@@ -1,0 +1,11 @@
+.header {
+    margin-top: 10px;
+    &__nick {
+        font-weight: bold;
+        font-size: 32px;
+    }
+    &__info {
+        margin-top: 3px;
+        font-size: 20px;
+    }
+}

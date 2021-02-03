@@ -1,0 +1,9 @@
+.posts {
+    margin: 5px 0;
+    &__item {
+         display: grid;
+         grid-template-columns: auto repeat(3, 100px);
+         align-items: center;
+         font-size: 16px;
+    }
+}
